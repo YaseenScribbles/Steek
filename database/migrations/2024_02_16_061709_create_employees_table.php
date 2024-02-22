@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->string('mobile',10)->nullable();
             $table->boolean('is_active')->default(true);
             $table->foreignId('user_id');

@@ -24,9 +24,9 @@ class StoreEmployeeRequest extends FormRequest
         return [
             'code' => 'string|required|unique:employees,code',
             'name' => 'string|required',
-            'role' => 'string|required',
-            'mobile' => 'string|max:10',
-            'is_active' => 'boolean',
+            'role' => 'nullable|string',
+            'mobile' => 'nullable|string|max:10|min:10',
+            'is_active' => 'nullable|boolean',
             'user_id' => 'required|exists:users,id'
         ];
     }

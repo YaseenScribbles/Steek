@@ -15,6 +15,7 @@ import { getJobWorks } from "../store/JobWorkSlice";
 import { Status, URL, HeadersWoToken } from "../assets/common";
 import { useUserContext } from "../context/UserContext";
 import { useErrorContext } from "../context/ErrorContext";
+import "./Jobwork.css";
 
 export default function Jobwork() {
     const dispatch = useDispatch();
@@ -134,7 +135,7 @@ export default function Jobwork() {
     };
 
     return (
-        <Container>
+        <Container className="jobwork-page">
             {loading && (
                 <div className="text-center">
                     <Spinner variant="secondary" animation="grow" />
@@ -213,101 +214,116 @@ export default function Jobwork() {
                 <h3 className="h1 text-center">List</h3>
             </Row>
             <hr />
-            <Table striped bordered hover responsive>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Code</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Active</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {jobworks && jobworks.length > 0 ? (
-                        jobworks.map((w, index) => {
-                            const serialNumber =
-                                (currentPage - 1) * 8 + index + 1;
-                            return jobWorksStatus === Status.Loading ? (
-                                <tr key={index}>
-                                    <td colSpan={6} className="text-center">
-                                        Loading...
-                                    </td>
-                                </tr>
-                            ) : (
-                                <tr key={index}>
-                                    <td>{serialNumber}</td>
-                                    <td>{w.code.toUpperCase()}</td>
-                                    <td>{w.description.toUpperCase()}</td>
-                                    <td>{(+w.price).toFixed(2)}</td>
-                                    <td>{+w.active === 1 ? "YES" : "NO"}</td>
-                                    <td>
-                                        <Button
-                                            variant="info"
-                                            onClick={() => editJobWork(w.id)}
-                                        >
-                                            EDIT
-                                        </Button>
-                                        &nbsp;
-                                        <Button
-                                            variant="danger"
-                                            onClick={() => {
-                                                deactivateJobWork(w.id);
-                                            }}
-                                            disabled = {+w.active !== 1}
-                                        >
-                                            DELETE
-                                        </Button>
-                                    </td>
-                                </tr>
-                            );
-                        })
-                    ) : (
+            <Container className="table">
+                <Table
+                    striped
+                    bordered
+                    hover
+                    responsive
+                    className="jobwork-table"
+                >
+                    <thead>
                         <tr>
-                            <td colSpan={6} className="text-center">
-                                {jobWorksStatus === Status.Loading
-                                    ? "Loading..."
-                                    : "No Data"}
-                            </td>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Active</th>
+                            <th>Action</th>
                         </tr>
-                    )}
-                </tbody>
-            </Table>
-            <Container className="d-flex justify-content-end">
-                <Pagination>
-                    <Pagination.Prev
-                        onClick={() =>
-                            setCurrentpage((prevPage) =>
-                                Math.max(prevPage - 1, 1)
-                            )
-                        }
-                        disabled={currentPage === 1}
-                    />
-                    {Array.from(
-                        { length: meta.last_page ? meta.last_page : 1 },
-                        (_, index) => (
-                            <Pagination.Item
-                                key={index + 1}
-                                active={index + 1 === currentPage}
-                                onClick={() => {
-                                    setCurrentpage(index + 1);
-                                }}
-                            >
-                                {index + 1}
-                            </Pagination.Item>
-                        )
-                    )}
-                    <Pagination.Next
-                        onClick={() =>
-                            setCurrentpage((prevPage) =>
-                                Math.max(prevPage + 1, meta.last_page)
-                            )
-                        }
-                        disabled={currentPage === meta.last_page}
-                    />
-                </Pagination>
+                    </thead>
+                    <tbody>
+                        {jobworks && jobworks.length > 0 ? (
+                            jobworks.map((w, index) => {
+                                const serialNumber =
+                                    (currentPage - 1) * 8 + index + 1;
+                                return jobWorksStatus === Status.Loading ? (
+                                    <tr key={index}>
+                                        <td colSpan={6} className="text-center">
+                                            Loading...
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    <tr key={index}>
+                                        <td>{serialNumber}</td>
+                                        <td>{w.code.toUpperCase()}</td>
+                                        <td>{w.description.toUpperCase()}</td>
+                                        <td>{(+w.price).toFixed(2)}</td>
+                                        <td>
+                                            {+w.active === 1 ? "YES" : "NO"}
+                                        </td>
+                                        <td>
+                                            <Button
+                                                variant="info"
+                                                onClick={() =>
+                                                    editJobWork(w.id)
+                                                }
+                                                disabled={+w.active !== 1}
+                                            >
+                                                EDIT
+                                            </Button>
+                                            &nbsp;
+                                            <Button
+                                                variant="danger"
+                                                onClick={() => {
+                                                    deactivateJobWork(w.id);
+                                                }}
+                                                disabled={+w.active !== 1}
+                                            >
+                                                DELETE
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        ) : (
+                            <tr>
+                                <td colSpan={6} className="text-center">
+                                    {jobWorksStatus === Status.Loading
+                                        ? "Loading..."
+                                        : "No Data"}
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table>
             </Container>
+            {jobworks.length > 0 && (
+                <Container className="d-flex justify-content-end">
+                    <Pagination>
+                        <Pagination.Prev
+                            onClick={() =>
+                                setCurrentpage((prevPage) =>
+                                    Math.max(prevPage - 1, 1)
+                                )
+                            }
+                            disabled={currentPage === 1}
+                        />
+                        {Array.from(
+                            { length: meta.last_page },
+                            (_, index) => (
+                                <Pagination.Item
+                                    key={index + 1}
+                                    active={index + 1 === currentPage}
+                                    onClick={() => {
+                                        setCurrentpage(index + 1);
+                                    }}
+                                >
+                                    {index + 1}
+                                </Pagination.Item>
+                            )
+                        )}
+                        <Pagination.Next
+                            onClick={() =>
+                                setCurrentpage((prevPage) =>
+                                    Math.max(prevPage + 1, meta.last_page)
+                                )
+                            }
+                            disabled={currentPage === meta.last_page}
+                        />
+                    </Pagination>
+                </Container>
+            )}
         </Container>
     );
 }

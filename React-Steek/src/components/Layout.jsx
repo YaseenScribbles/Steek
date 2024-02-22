@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import MyNavbar from "./Navbar";
 import { useUserContext } from "../context/UserContext";
 import { useErrorContext } from "../context/ErrorContext";
-import { useState } from "react";
+import "./Layout.css";
 
 export default function Layout() {
     const { user } = useUserContext();
@@ -15,8 +15,8 @@ export default function Layout() {
 
     const MyToast = ({ error, show }) => {
         return (
-            <Toast show={show} delay={5000} autohide>
-                <Toast.Header>
+            <Toast show={show} delay={3000} autohide>
+                <Toast.Header closeButton={false}>
                     <img
                         src="holder.js/20x20?text=%20"
                         className="rounded me-2"
@@ -30,9 +30,9 @@ export default function Layout() {
     };
 
     return (
-        <Container fluid id="layout">
+        <Container fluid className="layout-container">
             <MyNavbar />
-            <Container>
+            <Container className="content-container">
                 <ToastContainer
                     position="top-end"
                     className="p-3"

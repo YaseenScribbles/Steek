@@ -53,7 +53,7 @@ export default function LogIn() {
                 <section className="login-form">
                     <Row className="w-100 justify-content-center">
                         <Col lg="10" sm="12">
-                            <h4 className="h4 text-center mb-3">
+                            <h4 className="h3 text-center mb-3">
                                 Log into your account
                             </h4>
                         </Col>
@@ -63,7 +63,7 @@ export default function LogIn() {
                             <FloatingLabel
                                 controlId="name"
                                 label="Email"
-                                className="mb-3"
+                                className="mb-3 text-secondary"
                             >
                                 <Form.Control
                                     type="email"
@@ -84,7 +84,7 @@ export default function LogIn() {
                             <FloatingLabel
                                 controlId="password"
                                 label="Password"
-                                className="mb-3"
+                                className="mb-3 text-secondary"
                             >
                                 <Form.Control
                                     type="password"

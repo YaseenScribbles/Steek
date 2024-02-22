@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class UpdateEmployeeRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,14 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::debug('$id:'. $this->route('employee.id'));
         return [
-            //
+            'code' => 'required|string|unique:employees,code,' . $this->route('employee.id'),
+            'name' => 'string|required',
+            'role' => 'nullable|string',
+            'mobile' => 'nullable|string|max:10|min:10',
+            'is_active' => 'nullable|boolean',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

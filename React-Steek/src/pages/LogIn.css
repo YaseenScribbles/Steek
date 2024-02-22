@@ -1,3 +1,21 @@
+:root {
+    font-size: 12px;
+}
+
+/* Media query for HD ready resolution (720p) */
+@media screen and (min-width: 1280px) and (max-width: 1366px) {
+    :root {
+        font-size: 13px;
+    }
+}
+
+/* Media query for Full HD resolution (1080p) */
+@media screen and (min-width: 1920px) {
+    :root {
+        font-size: 16px;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +23,8 @@
 }
 
 .login-page {
-    height: 100vh;
-    width: 100vw;
+    height: 100dvh;
+    width: 100dvw;
     position: relative;
     background: linear-gradient(to right top, blue, #d70c6b);
 }
@@ -15,9 +33,9 @@
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
-    height: 70vh;
-    width: 25vw;
-    background: #E7E3D7;
+    height: 70dvh;
+    width: 25dvw;
+    background: #e7e3d7;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,40 +43,73 @@
 }
 
 .image-form-container {
-    height: 70vh;
-    width: 70vw;
+    height: 70dvh;
+    width: 70dvw;
     position: absolute;
     background-color: #d70c6b;
-    top: 15vh;
-    left: 15vw;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Move back by half its width and height */
     display: flex;
     justify-content: center;
     padding: 0 12px;
     border-radius: 10px;
     box-shadow: 8px 8px 5px black;
+    font-size: 1.2rem;
 }
 
-.image {
-    height: 70vh;
-    width: 45vw;
+/* .image {
+    height: 70dvh;
+    width: 45dvw;
 }
 
 #login-image {
-    height: 70vh;
-    width: 45vw;
+    height: 70dvh;
+    width: 45dvw;
+} */
+
+.image {
+    height: 100%;
+    width: auto;
 }
 
+#login-image {
+    height: 100%;
+    width: auto;
+}
+
+/* .image {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#login-image {
+    max-height: 100%;
+    max-width: 100%;
+} */
+
 #login-button {
-    height: 40px;
+    height: 2.5rem;
     border-radius: 20px;
     border-style: none;
     background-color: #d70c6b;
     cursor: pointer;
+    transition: all 0.2s ease-out;
 }
 
 #login-button:hover {
-    background-color: #F70A7D;
+    background-color: #f70a7d;
     box-shadow: 1px 1px 1px gray;
     transform: translate(1.1);
 }
+
+/* @media screen and (max-width: 1366px) {
+    .image-form-container {
+        height: 50dvh;
+        width: 50dvw;
+        top: 25dvh;
+        left: 25dvw;
+    }
+} */
+
 
