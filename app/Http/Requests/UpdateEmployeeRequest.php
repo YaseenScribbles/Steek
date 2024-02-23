@@ -22,7 +22,6 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function rules(): array
     {
-        Log::debug('$id:'. $this->route('employee.id'));
         return [
             'code' => 'required|string|unique:employees,code,' . $this->route('employee.id'),
             'name' => 'string|required',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
 {
@@ -13,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::paginate(8);
+        return CustomerResource::collection($customers);
     }
 
     /**
@@ -21,7 +23,13 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        //
+        $data = $request->validated();
+        try {
+            Customer::create($data);
+            return response()->json(['message' => 'Customer created successfully'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 500);
+        }
     }
 
     /**
@@ -37,7 +45,13 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $data = $request->validated();
+        try {
+            $customer->update($data);
+            return response()->json(['message' => 'Customer updated successfully'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 500);
+        }
     }
 
     /**
@@ -45,6 +59,11 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        try {
+            $customer->update(['is_active' => false]);
+            return response()->json(['message' => 'Customer deactivated successfully'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['errors' => $th->getMessage()], 500);
+        }
     }
 }

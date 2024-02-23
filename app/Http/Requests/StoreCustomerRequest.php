@@ -23,9 +23,9 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'mobile' => 'required|string',
-            'address' => 'string|required',
-            'is_active' => 'boolean',
+            'mobile' => 'required|string|min:10|max:10|unique:customers,mobile',
+            'address' => 'string|nullable',
+            'is_active' => 'boolean|nullable',
             'user_id' => 'required|exists:users,id'
         ];
     }
