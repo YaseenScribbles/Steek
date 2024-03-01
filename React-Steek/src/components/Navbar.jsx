@@ -39,13 +39,15 @@ export default function MyNavbar() {
         <>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="">Steek</Navbar.Brand>
+                    <Navbar.Brand href="/">Steek</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
+                            <Nav.Link href="/pos">POS</Nav.Link>
                             <Nav.Link href="/jobwork">Jobwork</Nav.Link>
                             <Nav.Link href="/employee">Employee</Nav.Link>
                             <Nav.Link href="/customer">Customer</Nav.Link>
+                            <Nav.Link href="/bills">Bills</Nav.Link>
                         </Nav>
                         <Nav>
                             <NavDropdown

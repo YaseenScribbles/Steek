@@ -1,0 +1,18 @@
+.billing-table {
+    max-height: 45vh;
+    overflow-y: auto;
+}
+
+.billing {
+    font-size: 14px;
+}
+
+@media screen and (min-width:1920px)  {
+    .billing-table {
+        max-height: 55vh;
+    }
+
+    .billing {
+        font-size: 1rem;
+    }
+}

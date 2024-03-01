@@ -271,12 +271,13 @@ export default function Employee() {
                                             &nbsp;
                                             <Button
                                                 variant="danger"
-                                                disabled={+e.active !== 1}
                                                 onClick={() =>
                                                     deactivateEmployee(e.id)
                                                 }
                                             >
-                                                DELETE
+                                                {+e.active !== 1
+                                                    ? "ACTIVATE"
+                                                    : "SUSPEND"}
                                             </Button>
                                         </td>
                                     </tr>

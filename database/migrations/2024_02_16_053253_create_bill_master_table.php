@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('bill_masters', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('bill_no')->unique();
+            $table->string('bill_no')->unique();
             $table->decimal('total_qty');
             $table->decimal('total_amount');
             $table->decimal('disc_perc')->default(0);
             $table->decimal('disc_amount')->default(0);
-            $table->bigInteger('customer_id')->default(0);
+            $table->foreignId('customer_id')->default(0);
             $table->string('remarks')->nullable();
-            $table->bigInteger('user_id');
+            $table->foreignId('user_id');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

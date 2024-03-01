@@ -5,15 +5,18 @@ import Layout from "./components/Layout";
 import { ErrorContextProvider } from "./context/ErrorContext";
 import { Provider } from "react-redux";
 import { Store } from "./store/Store";
+import { BillContextProvider } from "./context/BillContext";
 
 function App() {
     return (
         <Provider store={Store}>
             <UserContextProvider>
                 <ErrorContextProvider>
-                    <RouterProvider router={router}>
-                        <Layout />
-                    </RouterProvider>
+                    <BillContextProvider>
+                        <RouterProvider router={router}>
+                            <Layout />
+                        </RouterProvider>
+                    </BillContextProvider>
                 </ErrorContextProvider>
             </UserContextProvider>
         </Provider>

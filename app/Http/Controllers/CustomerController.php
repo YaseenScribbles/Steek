@@ -6,15 +6,21 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::paginate(8);
+        $page = $request->query('page');
+        if ($page === "0") {
+            $customers = Customer::Where('is_active','=','1')->get();
+        } else {
+            $customers = Customer::paginate(8);
+        }
         return CustomerResource::collection($customers);
     }
 
@@ -60,7 +66,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         try {
-            $customer->update(['is_active' => false]);
+            $customer->update(['is_active' => !$customer->is_active]);
             return response()->json(['message' => 'Customer deactivated successfully'], 200);
         } catch (\Throwable $th) {
             return response()->json(['errors' => $th->getMessage()], 500);

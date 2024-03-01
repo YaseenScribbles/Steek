@@ -30,7 +30,7 @@ export default function Layout() {
     };
 
     return (
-        <Container fluid className="layout-container">
+        <Container fluid className="layout-container p-0">
             <MyNavbar />
             <Container className="content-container">
                 <ToastContainer

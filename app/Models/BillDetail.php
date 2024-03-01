@@ -20,6 +20,7 @@ class BillDetail extends Model
         'mrp',
         'old_bill_id',
         'bill_mode',
+        'emp_code',
         's_no'
     ];
 }

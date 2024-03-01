@@ -238,12 +238,13 @@ export default function Customer() {
                                             &nbsp;
                                             <Button
                                                 variant="danger"
-                                                disabled={+c.active !== 1}
                                                 onClick={() =>
                                                     deactivateCustomer(c.id)
                                                 }
                                             >
-                                                DELETE
+                                                {+c.active !== 1
+                                                    ? "ACTIVATE"
+                                                    : "SUSPEND"}
                                             </Button>
                                         </td>
                                     </tr>

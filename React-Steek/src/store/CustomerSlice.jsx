@@ -19,7 +19,7 @@ export const CustomerSlice = createSlice({
                 const { data, meta } = action.payload;
                 state.status = Status.Success;
                 state.data = data;
-                state.meta = meta;
+                state.meta = meta || {};
             })
             .addCase(getCustomers.rejected, (state, action) => {
                 state.status = Status.Error;

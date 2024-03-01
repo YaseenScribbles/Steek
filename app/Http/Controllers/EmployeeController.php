@@ -7,15 +7,21 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use Exception;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::paginate(8);
+        $page = $request->query('page');
+        if ($page === "0") {
+            $employees = Employee::Where('is_active','=','1')->get();
+        } else {
+            $employees = Employee::paginate(8);
+        }
         return EmployeeResource::collection($employees);
     }
 
@@ -61,7 +67,7 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         try {
-            $employee->update(['is_active' => false]);
+            $employee->update(['is_active' => !$employee->is_active]);
             return response()->json(['message' => 'Employee deactivated'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

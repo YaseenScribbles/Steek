@@ -19,7 +19,7 @@ export const EmployeeSlice = createSlice({
                 state.status = Status.Success;
                 const { data, meta } = action.payload;
                 state.data = data;
-                state.meta = meta;
+                state.meta = meta || {};
             })
             .addCase(getEmployees.rejected, (state, action) => {
                 state.status = Status.Error;

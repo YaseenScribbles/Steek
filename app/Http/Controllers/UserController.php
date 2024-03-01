@@ -7,10 +7,9 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
@@ -55,7 +54,9 @@ class UserController extends Controller
         $data = $request->validated();
 
         if (!$request->has('password')) {
-            unset($userData['password']);
+            unset($data['password']);
+        } else {
+            $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);

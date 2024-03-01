@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('bill_settlements', function (Blueprint $table) {
             $table->foreignId('bill_id');
-            $table->string('mode');
-            $table->decimal('paid');
-            $table->decimal('return');
+            $table->decimal('cash')->default(0);
+            $table->decimal('card')->default(0);
+            $table->string('upi')->default(0);
+            $table->decimal('return')->default(0);
             $table->timestamps();
         });
     }

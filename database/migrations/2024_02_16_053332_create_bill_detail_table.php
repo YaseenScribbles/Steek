@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('mrp');
             $table->foreignId('old_bill_id')->default(0);
             $table->string('bill_mode')->default('normal');
+            $table->string('emp_code')->nullable();
             $table->integer('s_no');
             $table->timestamps();
         });

@@ -6,6 +6,7 @@ use App\Models\JobWork;
 use App\Http\Requests\StoreJobWorkRequest;
 use App\Http\Requests\UpdateJobWorkRequest;
 use App\Http\Resources\JobWorkResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class JobWorkController extends Controller
@@ -13,9 +14,16 @@ class JobWorkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobworks = JobWork::paginate(8);
+        $page = $request->query('page');
+
+        if($page === "0"){
+            $jobworks = JobWork::Where('is_active','=','1')->get();
+        } else {
+            $jobworks = JobWork::paginate(8);
+        }
+
         return JobWorkResource::collection($jobworks);
     }
 
@@ -59,7 +67,7 @@ class JobWorkController extends Controller
     public function destroy(JobWork $jobwork)
     {
         try {
-            $jobwork->update(['is_active' => false]);
+            $jobwork->update(['is_active' => !$jobwork->is_active]);
             return response()->json(['message' => 'Jobwork deactivated successfully'], 200);
         } catch (\Exception $e) {
             Log::error('Error deactivating the job work: ' . $e->getMessage());

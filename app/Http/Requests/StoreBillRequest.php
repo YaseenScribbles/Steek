@@ -25,33 +25,35 @@ class StoreBillRequest extends FormRequest
 
             //bill_masters
 
-            'bill_no' => 'required|numeric',
+            'bill_no' => 'nullable|numeric',
             'total_qty' => 'required|numeric',
             'total_amount' => 'required|numeric',
-            'disc_perc' => 'numeric',
-            'disc_amount' => 'numeric',
-            'customer_id' => 'exists:customers,id',
-            'remarks' => 'string',
+            'disc_perc' => 'numeric|nullable',
+            'disc_amount' => 'numeric|nullable',
+            'customer_id' => 'nullable',
+            'remarks' => 'string|nullable',
             'user_id' => 'required|exists:users,id',
 
             //bill_details
 
-            'bill_details.*.code' => 'required|string',
+            'bill_details.*.code' => 'required|exists:job_works,code',
             'bill_details.*.qty' => 'required|numeric',
             'bill_details.*.rate' => 'required|numeric',
             'bill_details.*.amount' => 'required|numeric',
-            'bill_details.*.disc_perc' => 'numeric',
-            'bill_details.*.disc_value' => 'numeric',
+            'bill_details.*.disc_perc' => 'numeric|nullable',
+            'bill_details.*.disc_value' => 'numeric|nullable',
             'bill_details.*.mrp' => 'numeric|required',
-            'bill_details.*.old_bill_id' => 'numeric',
-            'bill_details.*.bill_mode' => 'required|string',
-            'bill_details.*.s_no' => 'required|numeric',
+            'bill_details.*.old_bill_id' => 'numeric|nullable',
+            'bill_details.*.bill_mode' => 'nullable|string',
+            'bill_details.*.emp_code' => 'nullable|string',
+            'bill_details.*.s_no' => 'nullable|numeric',
 
             //bill_settlements
 
-            'bill_settlements.*.mode' => 'string|required',
-            'bill_settlements.*.paid' => 'numeric|required',
-            'bill_settlements.*.return' => 'numeric|required',
+            'cash' => 'numeric|required',
+            'card' => 'numeric|required',
+            'upi' => 'numeric|required',
+            'return' => 'numeric|required',
         ];
     }
 }

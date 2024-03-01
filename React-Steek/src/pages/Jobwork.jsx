@@ -268,9 +268,10 @@ export default function Jobwork() {
                                                 onClick={() => {
                                                     deactivateJobWork(w.id);
                                                 }}
-                                                disabled={+w.active !== 1}
                                             >
-                                                DELETE
+                                                {+w.active !== 1
+                                                    ? "ACTIVATE"
+                                                    : "SUSPEND"}
                                             </Button>
                                         </td>
                                     </tr>
@@ -299,20 +300,17 @@ export default function Jobwork() {
                             }
                             disabled={currentPage === 1}
                         />
-                        {Array.from(
-                            { length: meta.last_page },
-                            (_, index) => (
-                                <Pagination.Item
-                                    key={index + 1}
-                                    active={index + 1 === currentPage}
-                                    onClick={() => {
-                                        setCurrentpage(index + 1);
-                                    }}
-                                >
-                                    {index + 1}
-                                </Pagination.Item>
-                            )
-                        )}
+                        {Array.from({ length: meta.last_page }, (_, index) => (
+                            <Pagination.Item
+                                key={index + 1}
+                                active={index + 1 === currentPage}
+                                onClick={() => {
+                                    setCurrentpage(index + 1);
+                                }}
+                            >
+                                {index + 1}
+                            </Pagination.Item>
+                        ))}
                         <Pagination.Next
                             onClick={() =>
                                 setCurrentpage((prevPage) =>

@@ -16,7 +16,7 @@ const JobWorkSlice = createSlice({
                 state.status = Status.Success;
                 const { data, meta } = action.payload;
                 state.data = data;
-                state.meta = meta;
+                state.meta = meta || {};
             })
             .addCase(getJobWorks.pending, (state, action) => {
                 state.status = Status.Loading;
@@ -44,6 +44,10 @@ export const getJobWorks = createAsyncThunk(
             `${URL}/jobwork?page=${currentPage}`,
             options
         );
+        if (response.status === 401){
+            localStorage.removeItem("user");
+            window.location.reload();
+        }
         const data = await response.json();
         return data;
     }
