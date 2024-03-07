@@ -10,16 +10,16 @@ export default function DiscountModal({ show, closeDiscModal }) {
     const updateDiscValue = (totalValue, discPerc) => {
         const discValue = totalValue * (discPerc / 100);
         setDiscountInfo({
-            discPerc: discPerc || 0,
-            discValue: +discValue.toFixed(2) || 0,
+            discPerc: +discPerc || 0,
+            discValue: +discValue || 0,
         });
     };
 
     const updateDiscPerc = (totalValue, discValue) => {
         const discPerc = (discValue / totalValue) * 100;
         setDiscountInfo({
-            discPerc: +discPerc.toFixed(2) || 0,
-            discValue: discValue || 0,
+            discPerc: +discPerc || 0,
+            discValue: +discValue || 0,
         });
     };
 
@@ -53,7 +53,7 @@ export default function DiscountModal({ show, closeDiscModal }) {
                                 }
                                 onChange={(e) => {
                                     updateDiscValue(
-                                        totalInfo.totalAmount,
+                                        totalInfo.grossAmount,
                                         +e.target.value
                                     );
                                 }}
@@ -77,7 +77,7 @@ export default function DiscountModal({ show, closeDiscModal }) {
                                 }
                                 onChange={(e) =>
                                     updateDiscPerc(
-                                        totalInfo.totalAmount,
+                                        totalInfo.grossAmount,
                                         +e.target.value
                                     )
                                 }

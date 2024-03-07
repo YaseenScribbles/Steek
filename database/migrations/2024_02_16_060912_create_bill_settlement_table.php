@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('bill_id');
             $table->decimal('cash')->default(0);
             $table->decimal('card')->default(0);
-            $table->string('upi')->default(0);
+            $table->decimal('upi')->default(0);
             $table->decimal('return')->default(0);
             $table->timestamps();
         });

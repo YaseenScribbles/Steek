@@ -35,7 +35,7 @@ export default function QtyModal({ show, closeQtyModal, code }) {
                                 type="text"
                                 placeholder="***"
                                 value={qty === 0 ? "" : qty}
-                                onChange={(e) => setQty(+e.target.value)}
+                                onChange={(e) => setQty(+e.target.value || 0)}
                                 autoFocus
                             />
                         </FloatingLabel>

@@ -23,7 +23,10 @@ export default function PrintBill({
 
     return (
         <Container fluid className="p-0 mt-0">
-            <h2 className="text-center">Invoice</h2>
+            <h2 className="text-center">TAQUA SILKS</h2>
+            <p className="text-center mb-1">NO.23, Municipal Office Road,</p>
+            <p className="text-center">Tirupur - 641604</p>
+            <h3 className="text-center">Invoice</h3>
             <hr />
             <Row>
                 <Col xs={5} className="text-start">
@@ -87,27 +90,29 @@ export default function PrintBill({
                                 <td>{index + 1}</td>
                                 <td>{b.description.toUpperCase()}</td>
                                 <td>{b.qty}</td>
-                                <td>{b.rate}</td>
-                                <td>{b.amount}</td>
+                                <td>{(+b.rate).toFixed(2)}</td>
+                                <td>{(+b.amount).toFixed(2)}</td>
                             </tr>
                         );
                     })}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colSpan={2} className="text-center">Total</th>
+                        <th colSpan={2} className="text-center">
+                            Total
+                        </th>
                         <th>
-                            <h6>{totalInfo.totalQty}</h6>
+                            {totalInfo.totalQty}
                         </th>
                         <th></th>
                         <th>
-                            <h6>{totalInfo.totalAmount}</h6>
+                            {totalInfo.totalAmount}
                         </th>
                     </tr>
                 </tfoot>
             </Table>
             <hr />
-            {setttlementInfo.cash !== 0 && (
+            {+setttlementInfo.cash !== 0 && (
                 <Row className="text-center">
                     <Col xs={5} className="text-end">
                         CASH
@@ -116,11 +121,11 @@ export default function PrintBill({
                         :
                     </Col>
                     <Col xs={6} className="text-start">
-                        {setttlementInfo.cash}
+                        {(+setttlementInfo.cash).toFixed(2)}
                     </Col>
                 </Row>
             )}
-            {setttlementInfo.card !== 0 && (
+            {+setttlementInfo.card !== 0 && (
                 <Row className="text-center">
                     <Col xs={5} className="text-end">
                         CARD
@@ -129,11 +134,11 @@ export default function PrintBill({
                         :
                     </Col>
                     <Col xs={6} className="text-start">
-                        {setttlementInfo.card}
+                        {(+setttlementInfo.card).toFixed(2)}
                     </Col>
                 </Row>
             )}
-            {setttlementInfo.upi !== 0 && (
+            {+setttlementInfo.upi !== 0 && (
                 <Row className="text-center">
                     <Col xs={5} className="text-end">
                         UPI
@@ -142,11 +147,11 @@ export default function PrintBill({
                         :
                     </Col>
                     <Col xs={6} className="text-start">
-                        {setttlementInfo.upi}
+                        {(+setttlementInfo.upi).toFixed(2)}
                     </Col>
                 </Row>
             )}
-            {returnAmt !== 0 && (
+            {+returnAmt !== 0 && (
                 <Row className="text-center">
                     <Col xs={5} className="text-end">
                         RETURN
@@ -155,7 +160,7 @@ export default function PrintBill({
                         :
                     </Col>
                     <Col xs={6} className="text-start">
-                        {returnAmt}
+                        {(+returnAmt).toFixed(2)}
                     </Col>
                 </Row>
             )}

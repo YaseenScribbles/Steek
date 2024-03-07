@@ -85,8 +85,15 @@ export default function Billing() {
         const discValue = scanned.reduce((acc, currValue) => {
             return acc + +currValue.discValue;
         }, 0);
+        const grossValue = scanned.reduce((acc, currValue) => {
+            return acc + +currValue.mrp * +currValue.qty;
+        }, 0);
 
-        setTotalInfo({ totalQty: totalQty, totalAmount: totalValue });
+        setTotalInfo({
+            totalQty: totalQty,
+            totalAmount: parseFloat(totalValue.toFixed(2)),
+            grossAmount: grossValue,
+        });
         setDiscountInfo({ ...discountInfo, discValue: discValue });
 
         if (lastRowRef.current) {
@@ -211,7 +218,7 @@ export default function Billing() {
 
         const body = {
             total_qty: totalInfo.totalQty,
-            total_amount: totalInfo.totalAmount,
+            total_amount: Math.number(totalInfo.totalAmount),
             disc_perc: discountInfo.discPerc,
             disc_amount: discountInfo.discValue,
             customer_id: customerInfo.id,
@@ -278,8 +285,8 @@ export default function Billing() {
                             opacity:1
                         }
 
-                        table {
-                            font-weight: 600;
+                        tfoot {
+                            font-family: monospace;
                         }
 
                         @media print {
@@ -301,12 +308,19 @@ export default function Billing() {
             const printWindow = window.open("", "_blank");
             printWindow.document.write(BillContent);
             printWindow.document.close();
-            printWindow.print();
             resetForm();
             inpuRef.current.focus();
         } else {
-            const errors = Object.values(data.errors).flatMap((e) => e);
-            setErrors(errors);
+            try {
+                const errors = Object.values(data.errors).flatMap((e) => e);
+                setErrors(errors);
+            } catch (error) {
+                if (error) {
+                    setErrors([error]);
+                } else {
+                    setErrors([data.message]);
+                }
+            }
         }
 
         setLoading(false);
@@ -451,25 +465,25 @@ export default function Billing() {
                                         className="text-end"
                                         style={{ width: "2rem" }}
                                     >
-                                        {+s.disc}
+                                        {(+s.disc).toFixed(2)}
                                     </td>
                                     <td
                                         className="text-end"
                                         style={{ width: "2rem" }}
                                     >
-                                        {+s.discValue}
+                                        {(+s.discValue).toFixed(2)}
                                     </td>
                                     <td
                                         className="text-end"
                                         style={{ width: "2rem" }}
                                     >
-                                        {+s.saleValue}
+                                        {(+s.saleValue).toFixed(2)}
                                     </td>
                                     <td
                                         className="text-end"
                                         style={{ width: "2rem" }}
                                     >
-                                        {+s.total}
+                                        {(+s.total).toFixed(2)}
                                     </td>
                                     <td className="" style={{ width: "3rem" }}>
                                         {s.empCode !== ""
@@ -537,11 +551,11 @@ export default function Billing() {
                             <th></th>
                             <th></th>
                             <th className="text-end">
-                                {discountInfo.discValue}
+                                {(+discountInfo.discValue).toFixed(2)}
                             </th>
                             <th></th>
                             <th className="text-end">
-                                {totalInfo.totalAmount}
+                                {(+totalInfo.totalAmount).toFixed(2)}
                             </th>
                             <th></th>
                             <th></th>
@@ -554,15 +568,15 @@ export default function Billing() {
             <Container className="d-flex justify-content-center mt-2 mb-3">
                 <div
                     className="border-end d-flex justify-content-center align-items-center"
-                    style={{ height: "75px", width: "150px" }}
+                    style={{ height: "75px", width: "200px" }}
                 >
                     <h4 className="h1">{totalInfo.totalQty}</h4>
                 </div>
                 <div
                     className="border-start d-flex justify-content-center align-items-center"
-                    style={{ height: "75px", width: "150px" }}
+                    style={{ height: "75px", width: "200px" }}
                 >
-                    <h4 className="h1">{totalInfo.totalAmount}</h4>
+                    <h4 className="h1">{Math.round(totalInfo.totalAmount)}</h4>
                 </div>
             </Container>
             <QtyModal
@@ -596,6 +610,7 @@ export default function Billing() {
                     setShowCustomerModal(false);
                     setUniversal("");
                 }}
+                customers={customers}
             />
         </Container>
     );

@@ -34,6 +34,7 @@ export function BillContextProvider({ children }) {
     const [totalInfo, setTotalInfo] = useState({
         totalQty: 0,
         totalAmount: 0,
+        grossAmount: 0
     })
 
     return (

@@ -1,0 +1,56 @@
+.dashboard {
+    font-size: 1rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    color: white;
+}
+
+.box {
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+@media screen and (max-width:1366px) {
+    .box {
+        padding: 0.8rem;
+    }
+}
+
+.value {
+    margin-top: 1rem;
+}
+
+.employee-list .title {
+    color: black;
+}
+
+.employee-list {
+    padding: 1.2rem;
+    grid-column: 1/4;
+    border: solid 1px black;
+}
+
+.dashboard-table {
+    max-height: 20vh;
+    overflow-y: auto;
+}
+
+@media screen and (min-height:911px) {
+    .dashboard-table {
+        max-height: 26vh;
+        overflow-y: auto;
+    }
+}

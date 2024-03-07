@@ -3,6 +3,7 @@ import JobWorkSlice from "./JobWorkSlice";
 import EmployeeSlice from "./EmployeeSlice";
 import CustomerSlice from "./CustomerSlice";
 import ScannedSlice from "./ScannedSlice";
+import BillsSlice from "./BillsSlice";
 
 export const Store = configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export const Store = configureStore({
         employees: EmployeeSlice,
         customers: CustomerSlice,
         scanned: ScannedSlice,
+        bills: BillsSlice,
     },
 });

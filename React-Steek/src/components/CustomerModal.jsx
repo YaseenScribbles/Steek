@@ -1,7 +1,7 @@
-import { Button, FloatingLabel, Form, Modal, Row,Col } from "react-bootstrap";
+import { Button, FloatingLabel, Form, Modal, Row, Col } from "react-bootstrap";
 import { useBillContext } from "../context/BillContext";
 
-export default function CustomerModal({ show, closeCustomerModal }) {
+export default function CustomerModal({ show, closeCustomerModal, customers }) {
     const { customerInfo, setCustomerInfo } = useBillContext();
 
     return (
@@ -66,7 +66,23 @@ export default function CustomerModal({ show, closeCustomerModal }) {
                 </Row>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={closeCustomerModal}>Update</Button>
+                <Button
+                    variant="secondary"
+                    onClick={() => {
+                        let customer = customers.find(
+                            (c) => c.mobile === customerInfo.mobile
+                        );
+                        if (customer) {
+                            setCustomerInfo({
+                                ...customerInfo,
+                                id: customer.id,
+                            });
+                        }
+                        closeCustomerModal();
+                    }}
+                >
+                    Update
+                </Button>
             </Modal.Footer>
         </Modal>
     );
