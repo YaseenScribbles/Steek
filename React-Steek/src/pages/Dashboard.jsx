@@ -127,7 +127,7 @@ export default function Dashboard() {
             <hr />
             <Container className="grid-layout">
                 <div
-                    className="box settlement"
+                    className={`box settlement ${loading && 'skeleton'}`}
                     style={{ backgroundColor: "#343634" }}
                 >
                     <div className="title">
@@ -138,7 +138,7 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div
-                    className="box customers"
+                    className={`box customers ${loading && 'skeleton'}`}
                     style={{ backgroundColor: "#4E514E" }}
                 >
                     <div className="title">
@@ -149,7 +149,7 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div
-                    className="box employees"
+                    className={`box employees ${loading && 'skeleton'}`}
                     style={{ backgroundColor: "#616661" }}
                 >
                     <div className="title">
@@ -160,7 +160,7 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div
-                    className="box settlement-cash"
+                    className={`box settlement-cash ${loading && 'skeleton'}`}
                     style={{ backgroundColor: "#00625A" }}
                 >
                     <div className="title">
@@ -171,8 +171,8 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div
-                    className="box settlement-card"
-                    style={{ backgroundColor: "#1F9589" }}
+                    className={`box settlement-card ${loading && 'skeleton'}`}
+                    style= {{ backgroundColor: "#1F9589" }}
                 >
                     <div className="title">
                         <h3>Card</h3>
@@ -182,7 +182,7 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div
-                    className="box settlement-upi"
+                    className={`box settlement-upi ${loading && 'skeleton'}`}
                     style={{ backgroundColor: "#25B5A6" }}
                 >
                     <div className="title">
