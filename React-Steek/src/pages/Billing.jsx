@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import {
-    Button,
     Col,
     Container,
     FloatingLabel,
@@ -218,7 +217,7 @@ export default function Billing() {
 
         const body = {
             total_qty: totalInfo.totalQty,
-            total_amount: Math.number(totalInfo.totalAmount),
+            total_amount: Math.round(totalInfo.totalAmount),
             disc_perc: discountInfo.discPerc,
             disc_amount: discountInfo.discValue,
             customer_id: customerInfo.id,
@@ -242,15 +241,16 @@ export default function Billing() {
         if (response.status === 200) {
             setErrors([data.message]);
             const billMaster = data.billMaster;
-            const printBillElement = ReactDOMServer.renderToString(
-                <PrintBill
-                    billMaster={billMaster}
-                    billDetail={bill_details}
-                    customerInfo={customerInfo}
-                    setttlementInfo={settlementInfo}
-                    totalInfo={totalInfo}
-                    returnAmt={returnAmt}
-                />
+
+            const printBillElement = ReactDOMServer.renderToStaticMarkup(
+            <PrintBill
+                billMaster={billMaster}
+                billDetail={bill_details}
+                customerInfo={customerInfo}
+                setttlementInfo={settlementInfo}
+                totalInfo={totalInfo}
+                returnAmt={returnAmt}
+            />
             );
             const BillContent = `
             <html lang="en">
@@ -305,9 +305,11 @@ export default function Billing() {
                     </div>
                 </body>
             </html>`;
+
             const printWindow = window.open("", "_blank");
             printWindow.document.write(BillContent);
             printWindow.document.close();
+
             resetForm();
             inpuRef.current.focus();
         } else {

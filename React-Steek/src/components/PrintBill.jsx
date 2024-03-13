@@ -22,58 +22,55 @@ export default function PrintBill({
     const formattedDateTime = `${day}-${month}-${year} ${hours}:${minutes} ${ampm}`;
 
     return (
-        <Container fluid className="p-0 mt-0">
+        <Container className="p-0 mt-0">
             <h2 className="text-center">TAQUA SILKS</h2>
             <p className="text-center mb-1">NO.23, Municipal Office Road,</p>
-            <p className="text-center">Tirupur - 641604</p>
+            <p className="text-center mb-1">Tirupur - 641604</p>
+            <p className="text-center">Phone : 0421- 22 42 777</p>
             <h3 className="text-center">Invoice</h3>
             <hr />
-            <Row>
-                <Col xs={5} className="text-start">
+            <Row className="text-center mb-1">
+                <Col xs={2} className="text-start">
                     Bill No
                 </Col>
-                <Col xs={1} className="text-end">
+                <Col xs={1} className="text-start">
                     :
                 </Col>
-                <Col xs={6} className="text-end">
+                <Col xs={4} className="text-end pe-5">
                     {billMaster.bill_no}
                 </Col>
-            </Row>
-            <Row>
-                <Col xs={5} className="text-start">
-                    Bill Date
-                </Col>
-                <Col xs={1} className="text-end">
-                    :
-                </Col>
-                <Col xs={6} className="text-end">
-                    {formattedDateTime}
-                </Col>
-            </Row>
-            <Row>
-                <Col xs={5} className="text-start">
+                <Col xs={2} className="text-start">
                     Customer
                 </Col>
-                <Col xs={1} className="text-end">
+                <Col xs={1} className="text-start">
                     :
                 </Col>
-                <Col xs={6} className="text-end">
+                <Col xs={2} className="text-end">
                     {customerInfo.name}
                 </Col>
             </Row>
-            <Row>
-                <Col xs={5} className="text-start">
-                    Mobile
+            <Row className="text-center">
+                <Col xs={2} className="text-start">
+                    Bill Date
                 </Col>
-                <Col xs={1} className="text-end">
+                <Col xs={1} className="text-start">
                     :
                 </Col>
-                <Col xs={6} className="text-end">
+                <Col xs={4} className="text-end pe-5">
+                    {formattedDateTime}
+                </Col>
+                <Col xs={2} className="text-start">
+                    Mobile
+                </Col>
+                <Col xs={1} className="text-start">
+                    :
+                </Col>
+                <Col xs={2} className="text-end">
                     {customerInfo.mobile}
                 </Col>
             </Row>
             <hr />
-            <Table borderless className="w-100">
+            <Table bordered className="text-center">
                 <thead>
                     <tr>
                         <th>S No</th>
@@ -101,13 +98,9 @@ export default function PrintBill({
                         <th colSpan={2} className="text-center">
                             Total
                         </th>
-                        <th>
-                            {totalInfo.totalQty}
-                        </th>
+                        <th>{totalInfo.totalQty}</th>
                         <th></th>
-                        <th>
-                            {totalInfo.totalAmount}
-                        </th>
+                        <th>{totalInfo.totalAmount}</th>
                     </tr>
                 </tfoot>
             </Table>

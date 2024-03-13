@@ -57,7 +57,7 @@ h6 {
 
 .skeleton {
     opacity: 0.7;
-    animation: skeleton 1s linear infinite alternate;
+    animation: skeleton 3s linear infinite alternate;
 }
 
 @keyframes skeleton {

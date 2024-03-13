@@ -22,7 +22,7 @@ export default function SettlementModal({
 
     useEffect(() => {
         const { cash, card, upi } = settlementInfo;
-        let returnAmt = cash + card + upi - totalInfo.totalAmount;
+        let returnAmt = cash + card + upi - Math.round(totalInfo.totalAmount);
         setReturnAmount(returnAmt);
     }, [settlementInfo]);
 
@@ -57,7 +57,7 @@ export default function SettlementModal({
             size="sm"
         >
             <Modal.Header closeButton>
-                <Modal.Title>Settlement ({totalInfo.totalAmount})</Modal.Title>
+                <Modal.Title>Settlement ({Math.round(totalInfo.totalAmount)})</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row className="mb-3">
