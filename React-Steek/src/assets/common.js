@@ -1,4 +1,4 @@
-export const URL = "http://192.168.10.65:8000/api";
+export const URL = "http://liveserver/steek_api/api";
 
 export const HeadersWoToken = {
     Accept: "application/json",
