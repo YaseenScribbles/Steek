@@ -29,10 +29,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
 
     Route::apiResources([
         'jobwork' => JobWorkController::class,
@@ -89,4 +87,3 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/login', [UserController::class, 'login']);
-Route::post('/user',[UserController::class,'store']);

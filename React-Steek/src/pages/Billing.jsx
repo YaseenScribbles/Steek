@@ -512,7 +512,6 @@ export default function Billing() {
                                         </div>
                                         &nbsp; &nbsp;
                                         <div
-                                            className="d-inline"
                                             onClick={() => {
                                                 setJobWorkCode(s.code);
                                                 setShowEmpModal(true);
@@ -527,7 +526,6 @@ export default function Billing() {
                                         </div>
                                         &nbsp; &nbsp;
                                         <div
-                                            className="d-inline"
                                             onClick={() =>
                                                 dispatch(remove(s.code))
                                             }
