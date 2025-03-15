@@ -243,14 +243,14 @@ export default function Billing() {
             const billMaster = data.billMaster;
 
             const printBillElement = ReactDOMServer.renderToStaticMarkup(
-            <PrintBill
-                billMaster={billMaster}
-                billDetail={bill_details}
-                customerInfo={customerInfo}
-                setttlementInfo={settlementInfo}
-                totalInfo={totalInfo}
-                returnAmt={returnAmt}
-            />
+                <PrintBill
+                    billMaster={billMaster}
+                    billDetail={bill_details}
+                    customerInfo={customerInfo}
+                    setttlementInfo={settlementInfo}
+                    totalInfo={totalInfo}
+                    returnAmt={returnAmt}
+                />
             );
             const BillContent = `
             <html lang="en">
@@ -317,11 +317,7 @@ export default function Billing() {
                 const errors = Object.values(data.errors).flatMap((e) => e);
                 setErrors(errors);
             } catch (error) {
-                if (error) {
-                    setErrors([error]);
-                } else {
-                    setErrors([data.message]);
-                }
+                setErrors([data.message]);
             }
         }
 
@@ -512,6 +508,7 @@ export default function Billing() {
                                         </div>
                                         &nbsp; &nbsp;
                                         <div
+                                            className="d-inline"
                                             onClick={() => {
                                                 setJobWorkCode(s.code);
                                                 setShowEmpModal(true);
@@ -526,12 +523,13 @@ export default function Billing() {
                                         </div>
                                         &nbsp; &nbsp;
                                         <div
+                                            className="d-inline"
                                             onClick={() =>
                                                 dispatch(remove(s.code))
                                             }
                                         >
                                             <box-icon
-                                                name="message-square-x"
+                                                name="x"
                                                 type="regular"
                                                 size="sm"
                                                 color="red"

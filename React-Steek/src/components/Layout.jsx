@@ -24,7 +24,7 @@ export default function Layout() {
                     />
                     <strong className="me-auto">Steek</strong>
                 </Toast.Header>
-                <Toast.Body>{error.toUpperCase()}</Toast.Body>
+                <Toast.Body>{error ? error.toUpperCase() : "Error occurred, Contact Admin"}</Toast.Body>
             </Toast>
         );
     };

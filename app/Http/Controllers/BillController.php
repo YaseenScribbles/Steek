@@ -30,12 +30,9 @@ class BillController extends Controller
             ->leftJoin('customers as c', function ($join) {
                 $join->on('b.customer_id', '=', 'c.id');
             })
-            ->whereDate('b.created_at', '>=', $from_date)
-            ->whereDate('b.created_at', '<=', $to_date)
+            ->whereRaw("CONVERT(date, b.created_at) BETWEEN ? AND ?", [$from_date, $to_date])
             ->join('users as u', 'b.user_id', '=', 'u.id');
 
-        $sql = $billsQuery->toSql();
-        Log::info([$sql,$from_date,$to_date]);
 
         $bills = $billsQuery->paginate(8);
         return BillResource::collection($bills);
@@ -51,7 +48,7 @@ class BillController extends Controller
             DB::beginTransaction();
 
             // Validating request
-            $data = $request->validated();
+            $request->validated();
 
             // Retrieving settings
             $begin_date = Setting::where('key', 'begin_date')->value('value');
@@ -60,7 +57,7 @@ class BillController extends Controller
             $financial_duration = $this->getFinancialYear();
 
             // Calculating bill number
-            $next_bill_no = BillMaster::whereBetween('created_at', [$begin_date, $end_date])->count() + 1;
+            $next_bill_no = BillMaster::whereRaw('CONVERT(date,created_at) BETWEEN ? and ?', [$begin_date, $end_date])->count() + 1;
             $bill_no = $bill_prefix . $financial_duration . '-' . $next_bill_no;
             $customer_id = 0;
 
@@ -146,8 +143,6 @@ class BillController extends Controller
             $billDetails = $billDetailsQuery->get();
             $billSettlements = BillSettlement::where('bill_id', '=', $id)->get();
             $customer = '';
-
-            Log::info($billDetailsQuery->toSql());
 
             if ($billMasters->customer_id) {
                 $customer = Customer::find($billMasters->customer_id);
