@@ -11,9 +11,9 @@ export default function PrintBill({
     const dateTime = new Date(billMaster.created_at);
     const year = dateTime.getFullYear();
     const month = String(dateTime.getMonth() + 1).padStart(2, "0");
-    const day = String(dateTime.getDate() + 1).padStart(2, "0");
-    let hours = String(dateTime.getHours() + 1).padStart(2, "0");
-    const minutes = String(dateTime.getMinutes() + 1).padStart(2, "0");
+    const day = String(dateTime.getDate()).padStart(2, "0");
+    let hours = String(dateTime.getHours()).padStart(2, "0");
+    const minutes = String(dateTime.getMinutes()).padStart(2, "0");
 
     let ampm = hours >= 12 ? "PM" : "AM";
     hours %= 12;
